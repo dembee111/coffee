@@ -13,14 +13,14 @@ class CoffeeEntity
   public $review;
 
   function __construct($id, $name, $type, $price, $roast, $country, $image, $review){
-    $this->$id = $id;
-    $this->$name= $name;
-    $this->$type= $type;
-    $this->$price= $price;
-    $this->$roast= $roast;
-    $this->$country= $country;
-    $this->$image= $image;
-    $this->$review= $review;
+    $this->id = $id;
+    $this->name= $name;
+    $this->type= $type;
+    $this->price= $price;
+    $this->roast= $roast;
+    $this->country= $country;
+    $this->image= $image;
+    $this->review= $review;
   }
 
 

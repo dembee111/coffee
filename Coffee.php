@@ -14,7 +14,7 @@ else
 // output page data
 
 $title = 'Coffee overview';
-$content = $coffeeController->CreateCoffeeDropdownList() . $coffeeTables;
-include 'template.php';
+$content = $coffeeController->CreateCoffeeDropdownList(). $coffeeTables;
+include 'Template.php';
 
 ?>
