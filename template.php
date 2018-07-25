@@ -20,6 +20,17 @@
     font-weight: bold;
 
   }
+  .overViewTable{
+    width: 700px;
+
+  }
+  .overViewTable tr{
+    padding: 4px;
+  }
+  .overViewTable td{
+    padding:4px;
+    border:1px solid ##b3b3cc;
+  }
   </style>
 </head>
 <body>

@@ -46,17 +46,17 @@ class CoffeeModel{
           // ӨС-с дата авах
           while($row = mysqli_fetch_array($res, MYSQLI_NUM))
           {
-            $coffee = new stdClass();
 
-            $coffee->name = $row[1];
-            $coffee->type = $row[2];
-            $coffee->price = $row[3];
-            $coffee->roast = $row[4];
-            $coffee->country = $row[5];
-            $coffee->image = $row[6];
-            $coffee->review = $row[7];
+            $id = $row[0];
+            $name = $row[1];
+            $type = $row[2];
+            $price = $row[3];
+            $roast = $row[4];
+            $country = $row[5];
+            $image = $row[6];
+            $review = $row[7];
             // // обьект үүсгэх массивт оноох
-
+           $coffee = new CoffeeEntity($id, $name, $type, $price, $roast, $country, $image, $review);
 
          array_push($coffeeArray1, $coffee);
 
@@ -135,24 +135,34 @@ class CoffeeModel{
 
      function UpdateCoffee($id, CoffeeEntity $coffee)
      {
+       require 'Credentials.php';
+       $conn = mysqli_connect($host, $user, $password, $database);
+
+        if(!$conn){
+            die("Database connection error");
+          }
+          mysqli_set_charset($conn,"utf8");
+
        $query = sprintf("UPDATE coffee
          SET name = '%s', type ='%s', price ='%s', roast ='%s', country ='%s', image ='%s', review ='%s'
          where id=$id",
-           mysqli_real_escape_string($coffee->name),
-           mysqli_real_escape_string($coffee->type),
-           mysqli_real_escape_string($coffee->price),
-           mysqli_real_escape_string($coffee->roast),
-           mysqli_real_escape_string($coffee->country),
-           mysqli_real_escape_string("assets/img/coffee" . $coffee->image),
-           mysqli_real_escape_string($coffee->review));
+           mysqli_real_escape_string($conn, $coffee->name),
+           mysqli_real_escape_string($conn, $coffee->type),
+           mysqli_real_escape_string($conn, $coffee->price),
+           mysqli_real_escape_string($conn, $coffee->roast),
+           mysqli_real_escape_string($conn, $coffee->country),
+           mysqli_real_escape_string($conn, "assets/img/coffee/" . $coffee->image),
+           mysqli_real_escape_string($conn, $coffee->review));
 
-       $this->PerformQuery($query);
+           $res = mysqli_query($conn, $query);
+           mysqli_close($conn);
      }
 
      function DeleteCoffee($id)
      {
        $query = "DELETE FROM coffee WHERE id=$id";
        $this->PerformQuery($query);
+
      }
 
 
@@ -167,6 +177,7 @@ class CoffeeModel{
             die("Database connection error");
           }
           mysqli_set_charset($conn,"utf8");
+          
           $res = mysqli_query($conn, $query);
 
            mysqli_close($conn);
